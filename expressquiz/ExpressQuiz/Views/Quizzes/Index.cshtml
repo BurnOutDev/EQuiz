@@ -1,0 +1,127 @@
+﻿@model ExpressQuiz.ViewModels.QuizzesViewModel
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.bootpag.min.js")
+}
+
+<div style="width: 1280px">
+
+    <br />
+
+    <div id="leftSideBar" style="float:left;width:20%; margin:5px">
+        @Html.Partial("_QuizCategoriesPartial", Model.QuizCategories)
+    </div>
+    <div id="content" style="float:left;width:50%;margin:5px">
+
+        @using (Html.BeginForm("Index", "Quizzes"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.SelectedCategoryId)
+            @Html.TextBox("searchTerm", null, new { id = "searchTerm", @class = "form-control input-lg ", placeholder = Model.SearchPlaceHolder })
+            <br />
+            <div class="form-group">
+
+                <div class="row">
+                    <div class="col-sm-offset-6 col-sm-6">
+
+                        @Html.EnumDropDownListFor(m => m.Filter,
+                            htmlAttributes: new { @class = "form-control input-sm col-sm-1", id = "filterList", @onchange="form.submit()" })
+
+                      
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+           
+        }
+
+        <br />
+        <div class="text-center">
+            @Html.ActionLink("Create New", "Create", "Quizzes", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+        </div>
+        <br />
+
+        <div id="quizList" class="list-group">
+            @Html.Partial("_QuizListPartial", Model.Quizzes)
+
+        </div>
+
+        <div id="page-selection"></div>
+
+    </div>
+    <div id="rightSideBar" style="float:left;width:20%;margin:5px">
+        @Html.Partial("_TopListPartial", Model.TopQuizzes)
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+
+<script>
+
+
+    $(function () {
+
+
+        if ('@Model.PageCount' > 1) {
+            enablePaging();
+        }
+
+    });
+
+    function handleError(ajaxContext) {
+        $("#quizList").empty();
+        $("#quizList").append(ajaxContext.responseText);
+    }
+
+    function enablePaging() {
+
+        var catId = '@Model.SelectedCategoryId';
+        var filterId = '@Convert.ChangeType(Model.Filter, Model.Filter.GetTypeCode())';
+        var searchTerm = $("#searchTerm").val();
+        var pageCount = '@Model.PageCount';
+
+        var url = "/Quizzes/GetQuizList/?" +
+                "searchTerm=" + searchTerm + "&" +
+                "filter=" + filterId + "&" +
+                "selectedCategoryId=" + catId + "&" +
+                "page=";
+
+
+        $('#page-selection').bootpag({
+            total: pageCount,
+            page: 1,
+            leaps: false,
+            maxVisible: 10,
+            next: "next",
+            prev: "previous",
+        });
+
+        $('#page-selection').on("page", function (event, num) {
+
+            $.ajax({
+                url: url + num,
+                async: false,
+                type: "GET",
+                cache: false,
+                dataType: "html",
+                contentType: "text/html",
+
+                success: function (data) {
+                    $("#quizList").empty();
+                    $("#quizList").html(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    handleError(jqXHR);
+                }
+
+            });
+
+        });
+    }
+
+</script>

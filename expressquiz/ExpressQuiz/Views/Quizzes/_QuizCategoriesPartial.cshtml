@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ExpressQuiz.ViewModels.QuizCategoryViewModel>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Categories</h3>
+    </div>
+    <div class="list-group">
+        @foreach (var category in Model)
+        {
+          
+            <a class="list-group-item @(category.IsSelected? "active": "") " href="/Quizzes?selectedCategoryId=@category.Id">
+                @category.Name
+                <span class="badge">@category.QuizCount</span>
+            </a>
+          
+
+        }
+    </div>
+</div>

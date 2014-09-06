@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A48518D6-036B-48CE-A045-1119586FB21A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExpressQuiz.Core</RootNamespace>
+    <AssemblyName>ExpressQuiz.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Migrations\201409041449474_moretext.cs" />
+    <Compile Include="Migrations\201409041449474_moretext.Designer.cs">
+      <DependentUpon>201409041449474_moretext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuestionAnswerMap.cs" />
+    <Compile Include="Models\QuizStatistics.cs" />
+    <Compile Include="Services\IQuizResultService.cs" />
+    <Compile Include="Services\QuizResultService.cs" />
+    <Compile Include="Utils\DataProvider.cs" />
+    <Compile Include="Migrations\201408281546449_Init.cs" />
+    <Compile Include="Migrations\201408281546449_Init.Designer.cs">
+      <DependentUpon>201408281546449_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408281547335_App_Init.cs" />
+    <Compile Include="Migrations\201408281547335_App_Init.Designer.cs">
+      <DependentUpon>201408281547335_App_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Application\ApplicationDBContextConfig.cs" />
+    <Compile Include="Migrations\Quiz\QuizDbContextConfig.cs" />
+    <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\ContactInfo.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\QuestionType.cs" />
+    <Compile Include="Models\Quiz.cs" />
+    <Compile Include="Models\QuizCategory.cs" />
+    <Compile Include="QuizDbContext.cs" />
+    <Compile Include="Models\QuizFilter.cs" />
+    <Compile Include="Models\QuizRating.cs" />
+    <Compile Include="Models\QuizResult.cs" />
+    <Compile Include="Models\UserAnswer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\IRepo.cs" />
+    <Compile Include="Repos\Repo.cs" />
+    <Compile Include="Services\QuizCategoryService.cs" />
+    <Compile Include="Services\IQuizCategoryService.cs" />
+    <Compile Include="Services\IAnswerService.cs" />
+    <Compile Include="Services\IQuestionService.cs" />
+    <Compile Include="Services\IQuizService.cs" />
+    <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\AnswerService.cs" />
+    <Compile Include="Services\QuestionService.cs" />
+    <Compile Include="Services\QuizService.cs" />
+    <Compile Include="Utils\Logger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201408281546449_Init.resx">
+      <DependentUpon>201408281546449_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408281547335_App_Init.resx">
+      <DependentUpon>201408281547335_App_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409041449474_moretext.resx">
+      <DependentUpon>201409041449474_moretext.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Migrations\Quiz\seeddata.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

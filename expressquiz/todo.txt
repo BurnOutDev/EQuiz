@@ -1,0 +1,68 @@
+Expressquiz  2.0
+
+
+
+
+
+
+
+
+   ---------------UI --------
+
+
+   * add content to about
+
+
+
+
+ -------------------CLIENT -------
+
+
+
+
+
+* have a preview mode
+
+
+ ------------------SERVER ---------
+ * profile and see obvious bottlenecks
+
+ * Servi * when someone deletes or edits a quiz, and someone else is using it or editing it, it will result in strange errors. 
+   How to make sure it still works ( better handling)ce-idy everything??
+
+
+
+* in quiz review, the markup is shown, which is pretty unreadable..hmmm.
+
+* use session when taking and reviewing quiz
+
+----------------- DB COMMANDS ---------------------
+
+Update-Database -ConfigurationTypeName ApplicationDbContextConfig
+Update-Database -ConfigurationTypeName QuizDbContextConfig
+
+
+
+
+------------ BUGS ---------------
+
+
+* text encoding must be correct, see islam examples
+* log messages from repo say no much, add logging on higher level too, example: user 'balak' added answer to question x in quiz y
+
+
+* make quiz, question, answer readonly
+
+
+
+* add user activity chronologically
+
+
+
+
+
+
+
+CURRENT!!!!!!!!
+
+* implemented GetMap..ugly but seems to work..continue with that, also  do some research!

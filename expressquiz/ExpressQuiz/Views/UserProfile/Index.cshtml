@@ -1,0 +1,31 @@
+﻿@model  ExpressQuiz.ViewModels.UserProfileViewModel
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+
+
+
+<br/>
+
+
+
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="@(Model.ProfileView == 0 ? "active" : "" )"><a href="#quizzes" data-toggle="tab">Quizzes</a></li>
+    <li class="@(Model.ProfileView == 1 ? "active" : "" )"><a href="#social" data-toggle="tab">Social</a></li>
+   
+
+</ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade @(Model.ProfileView == 0 ? "active" : "" ) in" id="quizzes">
+        @Html.Partial("_QuizzesPartial", @Model.Quizzes)
+    </div>
+    <div class="tab-pane fade @(Model.ProfileView == 1 ? "active" : "" ) in" id="social">
+        @Html.Partial("_SocialPartial", @Model.SocialSettings)
+    </div>
+  
+</div>
+
+
+
+
+
+

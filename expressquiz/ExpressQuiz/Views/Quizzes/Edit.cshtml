@@ -1,0 +1,60 @@
+﻿@using System.Web.UI.WebControls
+@model ExpressQuiz.ViewModels.EditQuizViewModel
+
+@section Styles {
+    @Styles.Render("~/Scripts/tablednd/css/tablednd.css")
+    @Styles.Render("~/Scripts/slider/css/bootstrap-slider.min.css")
+    @Styles.Render("~/Scripts/pagedown/css/jquery.pagedown-bootstrap.css")
+    @Styles.Render("~/Content/font-awesome-4.2.0/css/font-awesome.min.css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/expressquiz")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+
+
+
+}
+
+
+
+<h2>Edit</h2> 
+
+<hr/>
+<div id="content">
+    @{
+        Html.RenderPartial("_EditQuizPartial", Model);
+    }
+</div>
+
+
+<script>
+    
+
+    function applyValidation() {
+        $("form").removeData("validator");
+        $("form").removeData("unobtrusiveValidation");
+        $.validator.unobtrusive.parse("form");
+    }
+
+    function handleError(ajaxContext) {
+        $("#content").empty();
+        $("#content").append(ajaxContext.responseText);
+    }
+
+    function beforePost() {
+        $("button[type=submit]").addClass('active');
+    }
+
+
+    $(function() {
+        
+    });
+    
+</script>
+
+@Scripts.Render("~/Scripts/tablednd/jquery.tablednd.js")
+@Scripts.Render("~/Scripts/slider/bootstrap-slider.min.js")
+@Scripts.Render("~/Scripts/pagedown/js/jquery.pagedown-bootstrap.combined.min.js")
+
