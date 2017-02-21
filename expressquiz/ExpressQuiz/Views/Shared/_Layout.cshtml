@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - ExpressQuiz</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/font-awesome-4.2.0/css/font-awesome.min.css")
+    @Styles.Render("~/Scripts/pagedown/css/jquery.pagedown-bootstrap.css")
     @RenderSection("styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
-     
+
         <script src="~/Scripts/globalize/globalize.js"></script>
         <script src="~/Scripts/globalize/cultures/globalize.culture.@(System.Threading.Thread.CurrentThread.CurrentCulture.Name).js"></script>
         <script>
@@ -37,6 +39,10 @@
                     Globalize.parseDate(value, "yyyy-MM-dd");
             }
         </script>
+
+        @Scripts.Render("~/Scripts/jquery.bootpag.min.js")
+        @Scripts.Render("~/bundles/expressquiz")
+        @Scripts.Render("~/Scripts/pagedown/js/jquery.pagedown-bootstrap.combined.min.js")
     }
 </head>
 <body>
@@ -52,16 +58,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Quizzes", "Index", "Quizzes")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                    }
-                   
+                    <li>
+                        <label id="pTimeLeft" class="btn btn-md btn-danger"></label>
+                    </li>
                 </ul>
-          
 
                 @Html.Partial("_LoginPartial")
             </div>
@@ -70,14 +70,21 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <div class="container body-content" >
+    <div class="container body-content">
+
+
         @RenderBody()
+
+
+
+
+
+
+
         <hr style="clear:both;" />
-        <footer style="clear:both;position:fixed;bottom:0;">
-        
-        </footer>
+        <footer style="clear:both;position:fixed;bottom:0;"></footer>
     </div>
     @MiniProfiler.RenderIncludes()
-   
+
 </body>
 </html>

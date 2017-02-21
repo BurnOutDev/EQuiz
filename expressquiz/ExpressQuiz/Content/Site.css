@@ -55,3 +55,48 @@ select{
     width: 19px;
 }
 
+.font-ge {
+    font-family: 'BPG Mrgvlovani', SansSerif;
+}
+
+* {
+    font-family: 'BPG Mrgvlovani', SansSerif;
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+.btn-quiz {
+    margin: 1rem;
+}
+
+#pTimeLeft {
+    line-height: 36px;
+    background-color: #03585f;
+    border: none;
+    font-size: 18px;
+}
+
+.navbar-stopwatch {
+    display: inline-block;
+    float: none;
+}
+
+.navbar-inverse {
+    background-color: #03585f;
+}
+
+.student-name-label {
+    color: white !important;
+}
+
+#question-count {
+    line-height: 36px;
+    background-color: #03585f;
+    border: none;
+    font-size: 18px;
+}
+
+.caption {
+    color: darkred;
+}

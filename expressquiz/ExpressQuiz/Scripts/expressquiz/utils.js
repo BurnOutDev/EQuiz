@@ -1,4 +1,4 @@
-﻿var ExpressQuiz;
+var ExpressQuiz;
 (function (ExpressQuiz) {
     var Utils = (function () {
         function Utils() {
@@ -8,12 +8,13 @@
                 $(window).on('beforeunload', function () {
                     return 'All unsaved changes will be lost if you leave or refresh the page.';
                 });
-            } else {
+            }
+            else {
                 $(window).off('beforeunload');
             }
         };
         return Utils;
-    })();
+    }());
     ExpressQuiz.Utils = Utils;
 })(ExpressQuiz || (ExpressQuiz = {}));
 //# sourceMappingURL=utils.js.map

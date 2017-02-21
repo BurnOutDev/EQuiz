@@ -1,4 +1,4 @@
-﻿var ExpressQuiz;
+var ExpressQuiz;
 (function (ExpressQuiz) {
     var Runtime = (function () {
         function Runtime(quiz) {
@@ -16,28 +16,24 @@
             this.currentQuestionIndex = index;
             // return this.quiz.Questions[index];
         };
-
         Runtime.prototype.getActiveQuestion = function (index) {
             return this.quiz.Questions[index];
         };
-
         Runtime.prototype.setAnswer = function (index, answer) {
             var q = this.quiz.Questions[index];
             var userAnswer;
             if (answer === undefined) {
                 userAnswer = new ExpressQuiz.UserAnswer(q.QuestionId, undefined);
-            } else {
+            }
+            else {
                 var a = q.Answers[answer];
                 userAnswer = new ExpressQuiz.UserAnswer(q.QuestionId, a.AnswerId);
             }
-
             this.userAnswers[index] = userAnswer;
         };
-
         Runtime.prototype.getAnswer = function (index) {
             return this.userAnswers[index].answerId;
         };
-
         Runtime.prototype.getProgress = function () {
             var qCount = this.quiz.Questions.length;
             var answered = 0;
@@ -46,15 +42,15 @@
                     answered++;
                 }
             }
-
-            return (answered / qCount) * 100;
+            return {
+                total: qCount, answered: answered
+            };
         };
-
         Runtime.prototype.getResult = function () {
             return this.userAnswers;
         };
         return Runtime;
-    })();
+    }());
     ExpressQuiz.Runtime = Runtime;
 })(ExpressQuiz || (ExpressQuiz = {}));
 //# sourceMappingURL=runtime.js.map

@@ -1,0 +1,334 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNet.Identity
+@using StackExchange.Profiling
+@model ExpressQuiz.ViewModels.ActiveQuizViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ExpressQuiz</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/font-awesome-4.2.0/css/font-awesome.min.css")
+    @Styles.Render("~/Scripts/pagedown/css/jquery.pagedown-bootstrap.css")
+    @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script src="~/Scripts/globalize/globalize.js"></script>
+        <script src="~/Scripts/globalize/cultures/globalize.culture.@(System.Threading.Thread.CurrentThread.CurrentCulture.Name).js"></script>
+        <script>
+            $.validator.methods.number = function (value, element) {
+                return this.optional(element) ||
+                    !isNaN(Globalize.parseFloat(value));
+            }
+            $(document).ready(function () {
+                Globalize.culture('@(System.Threading.Thread.CurrentThread.CurrentCulture.Name)');
+            });
+        </script>
+        <script>
+            jQuery.extend(jQuery.validator.methods, {
+                range: function (value, element, param) {
+                    //Use the Globalization plugin to parse the value
+                    var val = Globalize.parseFloat(value);
+                    return this.optional(element) || (
+                        val >= param[0] && val <= param[1]);
+                }
+            });
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) ||
+                    Globalize.parseDate(value) ||
+                    Globalize.parseDate(value, "yyyy-MM-dd");
+            }
+        </script>
+
+        @Scripts.Render("~/Scripts/jquery.bootpag.min.js")
+        @Scripts.Render("~/bundles/expressquiz")
+        @Scripts.Render("~/Scripts/pagedown/js/jquery.pagedown-bootstrap.combined.min.js")
+    }
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(((ClaimsIdentity)User.Identity).FindFirstValue("FullName"), "Index", "Home", new { area = "" }, new { @class = "navbar-brand student-name-label", href = "#" })
+            </div>
+            <div class="navbar-collapse collapse text-center">
+                <ul class="nav navbar-nav navbar-stopwatch">
+                    <li>
+                        <label id="question-count" class="btn btn-md btn-danger"></label>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right navbar-stopwatch">
+                    <li>
+                        <label id="pTimeLeft" class="btn btn-md btn-danger"></label>
+                    </li>
+                </ul>
+                @*@Html.Partial("_LoginPartial")*@
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <div class="container body-content">
+
+
+
+
+
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+        {
+            @Html.AntiForgeryToken()
+        }
+
+        <div>
+
+            @*<div class="text-center">
+
+
+                    <button id="done"  class="btn btn-lg btn-primary has-spinner">
+                        <span class="spinner"><i class="fa fa-refresh fa-spin"></i></span>
+                        Finish
+                    </button>
+                    <br/>
+                    <br />
+                    <div class="progress">
+                        <div id="pTimeLeft" class="progress-bar progress-bar-warning" style="width: 100%;"></div>
+                    </div>
+
+                </div>
+                <br />*@
+
+
+
+          
+            <div id="content">
+
+                <h4>Question</h4>
+                <div id="question">
+
+                </div>
+
+
+                <h4>Answers</h4>
+                <p>
+                    <div id="answers" class="col-lg-10">
+                    </div>
+                </p>
+
+            </div>
+
+            <br />
+            <div id="page-selection"></div>
+            <br />
+
+            <script>
+
+        $(document).ready(function () {
+
+            ExpressQuiz.Utils.togglePreventLeavingPage(true);
+
+            $.ajax({
+                url: "/ActiveQuiz/GetQuiz/" + "@Model.QuizId",
+                type: "GET",
+                error: OnGetQuizError,
+                success: OnGetQuizSuccess
+            });
+        });
+
+        
+
+        var totalTime = '@Model.EstimatedTime';
+        var runtime = undefined;
+        var counter = new ExpressQuiz.CountDown({
+            seconds: "@Model.EstimatedTime",
+                onUpdateStatus: function (sec) {
+                    var text = secondsToHms(sec);
+
+                $("#pTimeLeft").text(text);
+
+                //var timeLeftPercent = (sec / totalTime) * 100;
+                //$("#pTimeLeft").width(timeLeftPercent + "%");
+            },
+            onCounterEnd: function () {
+                sendResults();
+            }
+        });
+
+                function secondsToHms(d) {
+                    d = Number(d);
+                    var m = Math.floor(d % 3600 / 60);
+                    var s = Math.floor(d % 3600 % 60);
+
+                    var mDisplay = m > 0 ? pad(m) + " : " : "00 : ";
+                    var sDisplay = s > 0 ? pad(s) : "00";
+                    return mDisplay + sDisplay;
+                }
+
+                function pad(num) {
+                    var s = num + "";
+                    while (s.length < 2) s = "0" + s;
+                    return s;
+                }
+
+        function sendResults() {
+            var result = {};
+            result.QuizId = "@Model.QuizId";
+            result.Answers = runtime.getResult();
+            result.EllapsedTime = counter.getRemainingTime();
+
+            $("#done").addClass('active');
+
+            $.ajax({
+                url: '/ActiveQuiz/PostResult/',
+                async: false,
+                type: "POST",
+                cache: false,
+                headers: ExpressQuiz.AjaxHelper.createRequestionVerificationTokenHeader(),
+                data: JSON.stringify(result),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                error: OnPostResultsError,
+                success: OnPostResultsSucces,
+                complete:  $("#done").addClass('active')
+
+        });
+        }
+
+
+
+        function OnPostResultsSucces(data, textStatus, jqXHR) {
+            var url = '/QuizReview/Index/' + data;
+            ExpressQuiz.Utils.togglePreventLeavingPage(false);
+            window.location.href = url;
+        }
+
+        function OnPostResultsError(jqXHR, textStatus, errorThrown) {
+            ExpressQuiz.Utils.togglePreventLeavingPage(false);
+            location.href = "/Home/Error/?message=" + errorThrown;
+        }
+
+        function loadQuestion(question, answerId) {
+
+            $("#answers").empty();
+
+            for (var i = 0; i < question.Answers.length; i++) {
+                var checked = answerId == question.Answers[i].AnswerId ? "checked" : "";
+
+                var div = $(" <div class='radio'/>");
+                var label = $("<label/>");
+                var input = $("<input type='radio' " + checked + " name='optionsRadios' id=" + i + " value=" + i + ">");
+
+
+                label.append(input);
+                label.append(question.Answers[i].Text);
+
+                div.append(label);
+                $("#answers").append(div);
+            }
+
+            $('input[type=radio][name=optionsRadios]').on('change', function () {
+                var a = $('input[name=optionsRadios]:checked', '#answers').val();
+                runtime.setAnswer(runtime.currentQuestionIndex, a);
+                updateProgress();
+            });
+
+            $("#question").empty();
+            $("#question").append($("<textarea class='pagedown hidden' >" +
+               question.Text + "</textarea>"));
+
+
+            $("textarea.pagedown").pagedownBootstrap({
+                'sanatize': true
+            });
+            $('.wmd-preview').addClass('well');
+            $(".wmd-button-bar").hide();
+
+
+        }
+
+
+
+        function init(quiz) {
+
+
+
+
+            runtime = new ExpressQuiz.Runtime(quiz);
+
+            $('#page-selection').bootpag({
+                total: runtime.quiz.Questions.length,
+                page: 1,
+                leaps: false,
+                maxVisible: 10,
+                next: "next",
+                prev: "previous",
+            });
+
+                $('#page-selection > .pagination').append('<li id="done"> <a href="#"><span class="tab">finish</span></a></li > ');
+
+                $("#done").click(function () {
+
+                    sendResults();
+                });
+
+            $('#page-selection').on("page", function (event, num) {
+                var a = $('input[name=optionsRadios]:checked', '#answers').val();
+
+                runtime.setAnswer(runtime.currentQuestionIndex, a);
+
+                runtime.setActiveQuestion(num - 1);
+                var question = runtime.getActiveQuestion(num - 1);
+                loadQuestion(question, runtime.getAnswer(runtime.currentQuestionIndex));
+
+            });
+
+        }
+
+
+        function updateProgress() {
+            var value = runtime.getProgress();
+                $('#question-count').text(value.answered + "/" + value.total);
+        }
+
+
+
+        function OnGetQuizSuccess(data, textStatus, jqXHR) {
+            init(data);
+            loadQuestion(data.Questions[0]);
+
+                counter.start();
+                $('#question-count').text(0 + "/" + data.Questions.length);
+        }
+
+        function OnGetQuizError(jqXHR, textStatus, errorThrown) {
+
+            ExpressQuiz.Utils.togglePreventLeavingPage(false);
+            location.href = "/Home/Error/?message=" + errorThrown;
+        }
+
+            </script>
+
+        </div>
+
+
+
+
+
+
+
+        <hr style="clear:both;" />
+        <footer style="clear:both;position:fixed;bottom:0;"></footer>
+    </div>
+    @MiniProfiler.RenderIncludes()
+
+</body>
+</html>

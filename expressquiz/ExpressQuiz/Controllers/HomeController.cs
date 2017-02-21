@@ -6,11 +6,13 @@ using System.Web.Mvc;
 using ExpressQuiz.Core.Models;
 using ExpressQuiz.Core.Repos;
 using ExpressQuiz.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace ExpressQuiz.Controllers
 {
    
     [RequireHttps]
+    [Authorize(Roles = "Student")]
     public class HomeController : Controller
     {
         private readonly IRepo<ContactInfo> _contactInfoRepo;
@@ -23,53 +25,11 @@ namespace ExpressQuiz.Controllers
         public ActionResult Index()
         {
             return View("Index");
-        }
-
-        public ActionResult About()
-        {
-            
-
-            return View("About");
-        }
-
-        public ActionResult Contact()
-        {
-
-            var vm = new ContactViewModel();
-            
-            return View("Contact", vm);
-        }
-
-        [HttpPost]
-        public ActionResult Contact(ContactViewModel vm)
-        {
-            if (ModelState.IsValid)
-            {
-                var model = new ContactInfo();
-                model.Created = DateTime.Now;
-                model.Email = vm.Email;
-                model.Message = vm.Message;
-                model.Name = vm.Name;
-                
-                _contactInfoRepo.Insert(model);
-                _contactInfoRepo.Save();
-
-                vm = new ContactViewModel();
-              
-                vm.WasSent = true;
-                ModelState.Clear();
-            }
-           
-            return View("Contact", vm);
-        }
+        }       
         
-        
-
         [Authorize]
         public ActionResult Admin()
         {
-
-
             return View("Index");
         }
 

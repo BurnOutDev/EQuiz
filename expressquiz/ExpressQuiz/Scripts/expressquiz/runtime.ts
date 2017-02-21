@@ -51,7 +51,7 @@ module ExpressQuiz {
             return this.userAnswers[index].answerId;
         }
 
-        getProgress(): number {
+        getProgress() {
             var qCount = this.quiz.Questions.length;
             var answered = 0;
             for (var i = 0; i < qCount; i++) {
@@ -60,7 +60,9 @@ module ExpressQuiz {
                 }
             }
 
-            return (answered / qCount) * 100;
+            return {
+                total: qCount, answered: answered
+            };
         }
 
         getResult(): any {
@@ -69,4 +71,3 @@ module ExpressQuiz {
     }
 }
 
- 

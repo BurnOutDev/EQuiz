@@ -12,8 +12,6 @@ namespace ExpressQuiz.Core
         public QuizDbContext()
             : base("QuizDbContext")
         {
-           // Database.CreateIfNotExists();
-           
         }
         public DbSet<UserAnswer> UserAnswers { get; set; }
         public DbSet<Answer> Answers { get; set; }
@@ -28,7 +26,6 @@ namespace ExpressQuiz.Core
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            
         }
 
         public override int SaveChanges()

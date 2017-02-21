@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 namespace ExpressQuiz.Controllers
 {
     [ValidateAntiForgeryTokenOnAllPosts]
+    [Authorize(Roles = "Student")]
     public class ActiveQuizController : Controller
     {
         private readonly IQuizService _quizService;

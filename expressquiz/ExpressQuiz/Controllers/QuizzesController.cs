@@ -20,6 +20,7 @@ using Microsoft.Owin.Security;
 namespace ExpressQuiz.Controllers
 {
     [ValidateAntiForgeryTokenOnAllPosts]
+    [Authorize(Roles = "Admin")]
     public class QuizzesController : Controller
     {
         private readonly IAnswerService _answerService;
