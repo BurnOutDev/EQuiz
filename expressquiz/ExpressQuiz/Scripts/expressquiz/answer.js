@@ -1,7 +1,7 @@
 var ExpressQuiz;
 (function (ExpressQuiz) {
     var Answer = (function () {
-        function Answer(id, text, isCorrect) {
+        function Answer(id, text, isCorrect, isInput) {
             this.id = id;
             this.text = text;
             this.isCorrect = isCorrect;

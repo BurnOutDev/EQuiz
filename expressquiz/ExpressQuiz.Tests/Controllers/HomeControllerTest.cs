@@ -24,31 +24,5 @@ namespace ExpressQuiz.Tests.Controllers
     
             Assert.IsNotNull(result);
         }
-
-        [TestMethod]
-        public void About()
-        {
-
-            HomeController controller = _controllerProvider.CreateHomeController();
-
-      
-            ViewResult result = controller.About() as ViewResult;
-
-   
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void Contact()
-        {
-
-            HomeController controller = _controllerProvider.CreateHomeController();
-
-
-            ViewResult result = controller.Contact() as ViewResult;
-
-          
-            Assert.IsNotNull(result);
-        }
     }
 }

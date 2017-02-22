@@ -66,7 +66,8 @@ namespace ExpressQuiz.Extensions
                                     Explanation = z.Explanation,
                                     IsCorrect = z.IsCorrect,
                                     OrderId = z.OrderId,
-                                    AnswerId = z.Id
+                                    AnswerId = z.Id,
+                                    IsInput = z.IsInput
                                 }).OrderBy(z => z.OrderId)
                     });
                 }
@@ -88,7 +89,8 @@ namespace ExpressQuiz.Extensions
                                     Explanation = z.Explanation,
                                     IsCorrect = z.IsCorrect,
                                     OrderId = z.OrderId,
-                                    AnswerId = z.Id
+                                    AnswerId = z.Id,
+                                    IsInput = z.IsInput
                                 })
                     });
                 }
@@ -126,7 +128,8 @@ namespace ExpressQuiz.Extensions
                 Explanation = x.Explanation,
                 IsCorrect = x.IsCorrect,
                 OrderId = x.OrderId,
-                AnswerId = x.Id
+                AnswerId = x.Id,
+                IsInput = x.IsInput
             });
 
             return query;
@@ -199,6 +202,7 @@ namespace ExpressQuiz.Extensions
                     IsCorrect = x.IsCorrect,
                     OrderId = x.OrderId,
                     Text = x.Text,
+                    IsInput = x.IsInput
                 });
             }
 
@@ -215,6 +219,7 @@ namespace ExpressQuiz.Extensions
                 IsCorrect = answer.IsCorrect,
                 OrderId = answer.OrderId,
                 Text = answer.Text,
+                IsInput = answer.IsInput,
             };
 
             return vm;
@@ -227,7 +232,6 @@ namespace ExpressQuiz.Extensions
                 EllapsedTime = result.EllapsedTime,
                 Score = result.Score,
                 UserId = result.UserId,
-
             };
 
             return vm;
@@ -451,7 +455,8 @@ namespace ExpressQuiz.Extensions
                 quizResult.Answers.Select(x => new UserAnswerViewModel()
                 {
                     AnswerId = x.AnswerId,
-                    QuestionId = x.QuestionId
+                    QuestionId = x.QuestionId,
+                    Value = x.Value
                 }));
             
             

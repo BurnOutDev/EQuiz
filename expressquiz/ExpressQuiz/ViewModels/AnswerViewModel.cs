@@ -25,6 +25,8 @@ namespace ExpressQuiz.ViewModels
         [DataType(DataType.MultilineText)]
         public string Explanation { get; set; }
 
+        public bool IsInput { get; set; }
+
         [DisplayName("Is it correct?")]
         public bool IsCorrect { get; set; }
     }

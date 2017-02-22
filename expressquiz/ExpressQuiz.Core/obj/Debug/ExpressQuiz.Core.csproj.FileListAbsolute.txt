@@ -1,4 +1,3 @@
-C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\bin\Debug\Migrations\Quiz\seeddata.xml
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\bin\Debug\ExpressQuiz.Core.dll.config
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\bin\Debug\ExpressQuiz.Core.dll
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\bin\Debug\ExpressQuiz.Core.pdb
@@ -15,10 +14,6 @@ C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\bin\De
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\bin\Debug\Newtonsoft.Json.xml
-C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\obj\Debug\ExpressQuiz.Core.Migrations.Quiz.Init.resources
-C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\obj\Debug\ExpressQuiz.Core.Migrations.Application.App_Init.resources
-C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\obj\Debug\ExpressQuiz.Core.Migrations.Quiz.moretext.resources
-C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\obj\Debug\ExpressQuiz.Core.csproj.GenerateResource.Cache
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\obj\Debug\ExpressQuiz.Core.dll
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\obj\Debug\ExpressQuiz.Core.pdb
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz.Core\obj\Debug\ExpressQuiz.Core.csprojResolveAssemblyReference.cache

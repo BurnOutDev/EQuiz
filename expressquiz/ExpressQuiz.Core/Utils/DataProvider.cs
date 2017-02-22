@@ -61,7 +61,8 @@ namespace ExpressQuiz.Core.Utils
                             Text = a.Element("Text").Value.Trim(charsToTrim),
                             IsCorrect = a.Descendants("IsCorrect").Any(),
                             Explanation = a.Element("Explanation").Value.Trim(charsToTrim),
-                            OrderId = int.Parse(a.Element("OrderId").Value.Trim(charsToTrim))
+                            OrderId = int.Parse(a.Element("OrderId").Value.Trim(charsToTrim)),
+                            IsInput = bool.Parse(a.Element("IsInput").Value)
                         });
 
                     }
@@ -144,6 +145,7 @@ namespace ExpressQuiz.Core.Utils
                         {
                             aEl.Add(new XElement("IsCorrect"));
                         }
+                        aEl.Add(new XElement("IsInput", a.IsInput));
 
                         qEl.Add(aEl);
                     }

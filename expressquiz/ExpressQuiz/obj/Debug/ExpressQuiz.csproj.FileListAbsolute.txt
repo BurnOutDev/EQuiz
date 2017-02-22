@@ -1,4 +1,3 @@
-C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\bin\Migrations\Quiz\seeddata.xml
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\bin\App_Data\seeddata.xml
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\bin\ExpressQuiz.dll.config
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\bin\ExpressQuiz.dll
@@ -59,3 +58,4 @@ C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\bin\Microso
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\obj\Debug\ExpressQuiz.csprojResolveAssemblyReference.cache
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\obj\Debug\ExpressQuiz.dll
 C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\obj\Debug\ExpressQuiz.pdb
+C:\Users\BurnOutDev\Source\Repos\expressquiz\expressquiz\ExpressQuiz\bin\Antlr3.Runtime.dll

@@ -20,6 +20,7 @@ namespace ExpressQuiz.Core.Models
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            this.SecurityStamp = new System.Guid().ToString();
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             userIdentity.AddClaim(new Claim("FullName", $"{FirstName} {LastName}"));
             userIdentity.AddClaim(new Claim("PrivateNumber", $"{PrivateNumber}"));

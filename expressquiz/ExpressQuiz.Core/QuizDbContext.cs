@@ -9,8 +9,7 @@ namespace ExpressQuiz.Core
 {
     public class QuizDbContext : DbContext
     {
-        public QuizDbContext()
-            : base("QuizDbContext")
+        public QuizDbContext() : base("QuizDbContext")
         {
         }
         public DbSet<UserAnswer> UserAnswers { get; set; }

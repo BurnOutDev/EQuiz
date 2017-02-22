@@ -22,6 +22,8 @@ namespace ExpressQuiz.Core.Models
         [DataType(DataType.MultilineText)]
         public string Explanation { get; set; }
 
+        public bool IsInput { get; set; }
+
         public bool IsCorrect { get; set; }
 
 

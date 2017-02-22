@@ -380,6 +380,7 @@ namespace ExpressQuiz.Controllers
             {
                 var a = _answerService.Get(vm.Answer.AnswerId);
                 a.Explanation = vm.Answer.Explanation;
+                a.IsInput = vm.Answer.IsInput;
                 a.IsCorrect = vm.Answer.IsCorrect;
                 a.Text = vm.Answer.Text;
                 _answerService.Update(a);

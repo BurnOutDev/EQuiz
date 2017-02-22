@@ -7,7 +7,11 @@
     @{
         var quizes = ((ClaimsIdentity)User.Identity).FindFirst("QuizIds").Value.Split(';');
         Dictionary<string, string> dict = new Dictionary<string, string>();
-        quizes.ToList().ForEach(x => dict.Add(x.Split(',')[0], x.Split(',')[1]));
+
+        foreach (var x in quizes.ToList())
+        {
+            dict.Add(x.Split(',')[0], x.Split(',')[1]);
+        }
     }
     @for (int i = 0; i < dict.Count; i++)
     {

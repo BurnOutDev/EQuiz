@@ -9,5 +9,6 @@ namespace ExpressQuiz.ViewModels
     {
         public int AnswerId { get; set; }
         public int QuestionId { get; set; }
+        public string Value { get; set; }
     }
 }

@@ -109,7 +109,7 @@
 
 
 
-          
+
             <div id="content">
 
                 <h4>Question</h4>
@@ -130,7 +130,24 @@
             <div id="page-selection"></div>
             <br />
 
+            <a id="done" href="#"><span class="btn btn-success">finish</span></a>
+
+            <label id="current-page" style="display: none">1</label>
+
             <script>
+
+                function setCurrentPage(num) {
+                    $('#current-page').text(num);
+                }
+
+                function getCurrentPage() {
+                    return $('#current-page').text();
+                }
+
+                $("#done").click(function () {
+
+                    sendResults();
+                });
 
         $(document).ready(function () {
 
@@ -144,7 +161,7 @@
             });
         });
 
-        
+
 
         var totalTime = '@Model.EstimatedTime';
         var runtime = undefined;
@@ -225,7 +242,12 @@
 
                 var div = $(" <div class='radio'/>");
                 var label = $("<label/>");
-                var input = $("<input type='radio' " + checked + " name='optionsRadios' id=" + i + " value=" + i + ">");
+                var input;
+
+                if (question.Answers[i].IsInput)
+                    input = $("<input type='text' " + checked + " name='optionsRadios' id=" + i + " value=" + runtime.getAnswerInput(question.QuestionId-1).value + ">");
+                else
+                    input = $("<input type='radio' " + checked + " name='optionsRadios' id=" + i + " value=" + i + ">");
 
 
                 label.append(input);
@@ -237,9 +259,15 @@
 
             $('input[type=radio][name=optionsRadios]').on('change', function () {
                 var a = $('input[name=optionsRadios]:checked', '#answers').val();
-                runtime.setAnswer(runtime.currentQuestionIndex, a);
+                runtime.setAnswer(runtime.currentQuestionIndex, a, ''); // ამ დროს სხვა ინიშნება ანუ ტექსტი არარი
                 updateProgress();
-            });
+                });
+
+                $('input[type=text][name=optionsRadios]').on('change', function () {
+                    var a = $('input[type=text][name=optionsRadios]').val();
+                    runtime.setAnswer(runtime.currentQuestionIndex, 1, a);
+                    updateProgress();
+                });
 
             $("#question").empty();
             $("#question").append($("<textarea class='pagedown hidden' >" +
@@ -268,27 +296,40 @@
                 total: runtime.quiz.Questions.length,
                 page: 1,
                 leaps: false,
-                maxVisible: 10,
+                maxVisible: 100,
                 next: "next",
                 prev: "previous",
             });
 
-                $('#page-selection > .pagination').append('<li id="done"> <a href="#"><span class="tab">finish</span></a></li > ');
 
-                $("#done").click(function () {
 
-                    sendResults();
-                });
+                $('#page-selection').on("page", function (event, num) {
+                    var cAnswers = runtime.getActiveQuestion(getCurrentPage()-1).Answers;
+                var found = false;
+                for (var i = 0; i < cAnswers.length; i++) {
+                    if (cAnswers[i].IsInput) {
+                        found = true;
+                        break;
+                    }
+                }
 
-            $('#page-selection').on("page", function (event, num) {
-                var a = $('input[name=optionsRadios]:checked', '#answers').val();
+                if (found) {
+                    var a = $('input[type=text][name=optionsRadios]').val();
+                    runtime.setAnswer(runtime.currentQuestionIndex, 999, a);
+                } else
+                {
+                var a = $('input[type=radio][name=optionsRadios]:checked', '#answers').val();
+                runtime.setAnswer(runtime.currentQuestionIndex, a, '');
+                }
 
-                runtime.setAnswer(runtime.currentQuestionIndex, a);
+
+
+
 
                 runtime.setActiveQuestion(num - 1);
                 var question = runtime.getActiveQuestion(num - 1);
                 loadQuestion(question, runtime.getAnswer(runtime.currentQuestionIndex));
-
+                setCurrentPage(num);
             });
 
         }

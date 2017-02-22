@@ -11,7 +11,7 @@ module ExpressQuiz {
             this.userAnswers = [];
             this.currentQuestionIndex = 0;
             for (var i = 0; i < quiz.Questions.length; i++) {
-                this.userAnswers[i] = new UserAnswer(quiz.Questions[i].QuestionId, undefined);
+                this.userAnswers[i] = new UserAnswer(quiz.Questions[i].QuestionId, undefined, undefined);
             }
         }
 
@@ -32,15 +32,17 @@ module ExpressQuiz {
             return this.quiz.Questions[index];
         }
 
-        setAnswer(index: number, answer: number) {
+        setAnswer(index: number, answer: number, input: string) {
 
             var q = this.quiz.Questions[index];
             var userAnswer;
-            if (answer === undefined) {
-                userAnswer = new UserAnswer(q.QuestionId, undefined);
+            if (answer === undefined || answer === 999) {
+                userAnswer = new UserAnswer(q.QuestionId, undefined, input);
             } else {
+                // answer is text sometimes
+
                 var a = q.Answers[answer];
-                userAnswer = new UserAnswer(q.QuestionId, a.AnswerId);
+                userAnswer = new UserAnswer(q.QuestionId, a.AnswerId, input);
             }
 
             this.userAnswers[index] = userAnswer;
@@ -49,6 +51,10 @@ module ExpressQuiz {
         getAnswer(index: number) {
 
             return this.userAnswers[index].answerId;
+        }
+
+        getAnswerInput(index: number) {
+            return this.userAnswers[index];
         }
 
         getProgress() {

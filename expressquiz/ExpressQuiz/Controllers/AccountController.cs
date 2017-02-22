@@ -61,6 +61,7 @@ namespace ExpressQuiz.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.Email, model.Password);
+                user.SecurityStamp = "asdasdasdasd";
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
@@ -95,6 +96,7 @@ namespace ExpressQuiz.Controllers
             {
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, PrivateNumber = model.PrivateNumber, FirstName = model.FirstName, LastName = model.LastName };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                UserManager.AddToRole(user.Id, "Student");
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
